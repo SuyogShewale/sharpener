@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user details</title>
+</head>
+<body>
+    <form action="">
+        <input type="text" name="" id="name" placeholder="Enter you name here">
+        <input type="email" name="" id="email" placeholder="Enter you emailId here">
+        <input type="number" name="" id="num" placeholder="Enter you mobile number here">
+        <input type="submit" name="" id="sub">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Number</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+    let dataArr = JSON.parse(localStorage.getItem('userList')) || [];
+    const subBtn = document.getElementById('sub')
+    subBtn.addEventListener('click',saveData)
+
+    function saveData(e){
+  
+        e.preventDefault()
+        let data = {
+
+                 userName : document.getElementById('name').value,
+                 userEmail : document.getElementById('email').value,
+                 userNum : document.getElementById('num').value
+        
+    }
+
+    dataArr.push(data)
+    localStorage.setItem('userList',JSON.stringify(dataArr))
+    }
+
+
+    
+    displayData(dataArr);
+   function displayData(dataArr){
+        dataArr.forEach(el => {
+
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.innerText=el.userName
+            let td2 = document.createElement('td')
+            td2.innerText=el.userEmail
+            let td3 = document.createElement('td')
+            td3.innerText=el.userNum
+            let btn = document.createElement('button')
+            btn.innerText = "Delete"
+            btn.addEventListener('click',removeRow)
+            let edit = document.createElement('edit')
+            edit.innerText = "Edit"
+        
+
+
+            tr.append(td1,td2,td3,btn,edit)
+            document.querySelector('tbody').append(tr)
+
+            
+
+
+        });
+
+        function removeRow(e){
+            e.target.parentNode.remove()
+        }
+   }
+//        let arr = JSON.parse(localStorage.getItem("userData")) || []
+//        arr.push(userDetails)
+//        let getData = JSON.parse(localStorage.getItem('userData'))
+//        if(getData){
+//         console.log(getData)
+//         let final=[...arr,...getData]
+//         localStorage.setItem('userData',JSON.stringify(final))
+
+//        }else{
+//         localStorage.setItem('userData',JSON.stringify(arr))
+
+//        }
+
+
+
+//         let a = document.getElementById('liname').innerText=userDetails.userName
+//        let b = document.getElementById('liemail').innerText=userDetails.userEmail
+//        let c = document.getElementById('linum').innerText=userDetails.userNum
+//        let d = document.createElement('button')
+         
+// //       var li = document.createElement('li')
+// //       li.innerText=userDetails.userName
+// //       var lii =  document.createElement('li')
+// //       lii.innerText=userDetails.userEmail
+// //       var liiii =   document.createElement('li')
+// //       liiii.innerText=userDetails.userNum
+
+            
+
+       
+
+
+
+
+
+</script>
