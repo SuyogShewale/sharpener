@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user details</title>
+</head>
+<body>
+    <form action="">
+        <input type="text" name="" id="name" placeholder="product name">
+        <input type="number" name="" id="price" placeholder="price">
+        <input type="submit" name="" id="sub">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>price</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+</html>
+<script>
+       var total =0
+    let dataArr = JSON.parse(localStorage.getItem('userList')) || [];
+    const subBtn = document.getElementById('sub')
+    subBtn.addEventListener('click',saveData)
+
+    function saveData(e){
+  
+        e.preventDefault()
+        let data = {
+
+                 userName : document.getElementById('name').value,
+                 userprice : document.getElementById('price').value
+              
+        
+    }
+
+    dataArr.push(data)
+    localStorage.setItem('userList',JSON.stringify(dataArr))
+    }
+
+
+    
+    displayData(dataArr);
+   function displayData(dataArr){
+  
+            
+        dataArr.forEach(el => {
+         
+
+            let tr = document.createElement('tr')
+            let td1 = document.createElement('td')
+            td1.innerText=el.userName
+            let td2 = document.createElement('td')
+            td2.innerText=el.userprice
+          
+            let btn = document.createElement('button')
+            btn.innerText = "Delete"
+            btn.addEventListener('click',removeRow)
+            // let sum = document.createElement('div')
+            // sum.innerText= el.userprice
+            total = el.userprice
+            console.log(total)
+            let add = document.createElement('div')
+            add.innerText = "Total" + total
+          
+
+
+            tr.append(td1,td2,btn,add)
+            document.querySelector('tbody').append(tr)
+
+         
+       
+        
+
+        });
+
+        function removeRow(e){
+            e.target.parentNode.remove()
+        }
+
+        
+   }
+
+
+
+
+
+
+</script>
