@@ -1,98 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>user details</title>
-</head>
-<body>
+  </head>
+  <body>
     <form action="">
-        <input type="text" name="" id="name" placeholder="product name">
-        <input type="number" name="" id="price" placeholder="price">
-        <input type="submit" name="" id="sub">
+      <input type="text" name="" id="name" placeholder="product name" />
+      <input type="number" name="" id="price" placeholder="price" />
+      <input type="submit" name="" id="sub" />
     </form>
     <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>price</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>price</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
     </table>
-</body>
+  </body>
 </html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
 <script>
-       var total =0
-    let dataArr = JSON.parse(localStorage.getItem('userList')) || [];
-    const subBtn = document.getElementById('sub')
-    subBtn.addEventListener('click',saveData)
 
-    function saveData(e){
   
-        e.preventDefault()
-        let data = {
-
-                 userName : document.getElementById('name').value,
-                 userprice : document.getElementById('price').value
-              
-        
-    }
-
-    dataArr.push(data)
-    localStorage.setItem('userList',JSON.stringify(dataArr))
-    }
 
 
+  
+  // let dataArr = JSON.parse(localStorage.getItem('userList')) || [];
+  const subBtn = document.getElementById("sub");
+  subBtn.addEventListener("click", saveData);
+  var API = "https://crudcrud.com/api/4cbc6ea46328438c9b15581bce27ecbd"
+  function saveData(e) {
+    e.preventDefault()
+
+    let userName = document.getElementById('name').value;
     
-    displayData(dataArr);
-   function displayData(dataArr){
-  
-            
-        dataArr.forEach(el => {
+    let userPrice = document.getElementById('price').value;
+  let data = {
+    userName,
+    userPrice,
+  };
+
+    console.log(data)
+    axios
+      .post(`${API}/products`, data)
+      .then((res) => {
+
+        getData();
+      })
+      .catch((err) => {
+        console.log("err",err);
+      });
+
+
+
+
+  }
+
+ 
+
+  // displayData(dataArr);
+  function displayData(dataArr) {
+    console.log(dataArr)
+    var total = 0;
+    document.querySelector("tbody").innerHTML=""
+    dataArr.forEach((el) => {
+      let tr = document.createElement("tr");
+      let td1 = document.createElement("td");
+      td1.innerText = el.userName;
+      let td2 = document.createElement("td");
+      td2.innerText = el.userPrice;
+
+      total = +total+ +el.userPrice
+
+      let btn = document.createElement("button");
+      btn.innerText = "Delete";
+      btn.onclick = (ew)=>{
+        console.log(el._id)
+        let id = el._id
+        axios.delete(`${API}/products/${id}`).
+        then((res)=>{
+            document.querySelector("tbody").remove(tr)
+            displayData(res.data);
+            // console.log(res)
+        }).catch((err)=>{
+            console.log(err)
+        })
+      }
+      
+      
+     
+
+      tr.append(td1, td2, btn);
+     
+      document.querySelector("tbody").append(tr);
+    });
+    let add = document.createElement("div");
+   add.style.color = "blue";
+   add.style.fontFamily = "bold";
+      add.innerText = "Total : " + total;
+      document.querySelector("tbody").append(add);
+      
+
+  }
+
+  function getData(){
+   
+    axios
+      .get(`${API}/products`)
+      .then((res) => {
+        displayData(res.data);
+        
+        console.log("response get",res.data);
          
 
-            let tr = document.createElement('tr')
-            let td1 = document.createElement('td')
-            td1.innerText=el.userName
-            let td2 = document.createElement('td')
-            td2.innerText=el.userprice
-          
-            let btn = document.createElement('button')
-            btn.innerText = "Delete"
-            btn.addEventListener('click',removeRow)
-            // let sum = document.createElement('div')
-            // sum.innerText= el.userprice
-            total = el.userprice
-            console.log(total)
-            let add = document.createElement('div')
-            add.innerText = "Total" + total
-          
-
-
-            tr.append(td1,td2,btn,add)
-            document.querySelector('tbody').append(tr)
-
-         
-       
-        
-
-        });
-
-        function removeRow(e){
-            e.target.parentNode.remove()
-        }
-
-        
-   }
 
 
 
 
+      }).catch((err) => {
+        console.log("err",err);
+      });
 
 
+
+
+  }
+
+  getData();
 </script>
