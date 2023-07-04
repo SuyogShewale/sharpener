@@ -1,0 +1,35 @@
+.expense-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .expense-item__date {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .expense-item__description {
+    margin-top: 10px;
+  }
+  
+  .expense-item__title {
+    color: blue;
+    font-size: 20px;
+  }
+  
+  .expense-item__amount {
+    font-weight: bold;
+  }
+  
+  .expense-item__location {
+    color: gray;
+  }
+
+  
+ 
+
+  
+  
+  
+ 
