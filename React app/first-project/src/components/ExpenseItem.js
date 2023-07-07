@@ -1,7 +1,9 @@
 import React from 'react';
 import './ExpenseItem.css';
+
 import ExpenseDetails from './ExpenseDetails';
 import ExpenseDate from './ExpenseDate';
+import Card from './Card';
 
 
 function ExpenseItem(props) {
@@ -9,8 +11,8 @@ function ExpenseItem(props) {
 const Month = props.date.toLocaleString('en-US' , { Month : 'long'});
 const day = props.date.toLocaleString('en-US' , { Month : '2-digit'});
 const year = props.date.getFullYear();
-console.log("props from expense item",props.amount, props.location,  props.title)
-console.log("props" , props);
+console.log("props from expense item",props.amount, props.LocationOfExpenditure,  props.title)
+console.log("propsExpenseItem" , props);
   // return (
   //   <div className='expense-item' style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
   //     <div>
@@ -34,14 +36,22 @@ console.log("props" , props);
 
   
 
-return (  <div className='expense-item'>
-  
+return ( <>
+
+   <Card className='expense-item'>
+   <h2 style={{ color: 'blue', fontSize: '20px' }}>{"props.title"}</h2>
+
  <ExpenseDate date ={props.date} />
+ <div className='expense-item__description'>
+    <h2 style={{ color: 'blue', fontSize: '20px' }}>{props.title}</h2>
+    <div className='expense-item__price' style={{ fontWeight: 'bold' }}>${props.amount}</div>
+ </div>
   
-  <ExpenseDetails amount={props.amount}  LocationOfExpenditure={props.LocationOfExpenditure}   Title={props.Title} /> 
+  {/* <ExpenseDetails amount={props.amount}  LocationOfExpenditure={props.LocationOfExpenditure}   Title={props.Title} />  */}
 
   
-</div>
+</Card>
+</>
   
 )
   
