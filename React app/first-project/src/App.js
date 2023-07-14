@@ -1,23 +1,25 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import ExpenseItem from '../src/components/ExpenseItem';
-import Expenses from './components/Expenses';
+import '../src/components/UI/Card';
+import ExpenseItem from './components/Expenses/ExpenseItem';
+import Expenses from './components/Expenses/Expenses';
+import ExpenseForm from './components/ExpenseForm';
+import ExpenseFormm from './components/ExpenseFormm';
 
 function App(){
 
   const expenses = [
     {Title : 'car insurance' , amount : 294.67 , date : new Date(2021,8,28),   LocationOfExpenditure : 'Nashik'},
-    {Title : 'car insurance' , amount : 294.67 , date : new Date(2021,8,28)  ,LocationOfExpenditure : 'Pune'},
+    {Title : 'Bike insurance' , amount : 294.67 , date : new Date(2021,8,28)  ,LocationOfExpenditure : 'Pune'},
     {Title : 'Home insurance' , amount : 294.67 , date : new Date(2021,8,28), LocationOfExpenditure : 'Kolhapur'},
-    {Title : 'car insurance' , amount : 294.67 , date : new Date(2021,8,28),LocationOfExpenditure : 'Trimbak'}
+    {Title : 'gold loan' , amount : 294.67 , date : new Date(2021,8,28),LocationOfExpenditure : 'Trimbak'}
     
   ]
 
   return React.createElement( 'div',{},
   React.createElement('h2',{},"let's get started!"),
-  React.createElement(Expenses,{items: expenses})
-
+  React.createElement(Expenses,{items: expenses}),
+  React.createElement(ExpenseFormm, {})
     // <div className="App">
     //           {/* <h2>Let's get started</h2>
     //           <ExpenseItem Title = {Expenses[0].Title} amount = {Expenses[0].amount} date = {Expenses[0].date} LocationOfExpenditure = {Expenses[0].LocationOfExpenditure}></ExpenseItem>
