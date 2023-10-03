@@ -1,38 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import '../src/components/UI/Card';
-import ExpenseItem from './components/Expenses/ExpenseItem';
+// import logo from './logo.svg';
+// import ExpenseForm from './components/ExpenseForm/ExpenseForm';
+import React,{useState} from 'react';
+// import './App.css';
 import Expenses from './components/Expenses/Expenses';
-import NewExpense from './components/newExpense';
+import NewExpense from './components/ExpenseForm/NewExpense';
 
 
-function App(){
 
-  const expenses = [
-    {id : 'e1' , Title : 'car insurance' , amount : 294.67 , date : new Date(2021,8,28),   LocationOfExpenditure : 'Nashik'},
-    {id : 'e2' , Title : 'Bike insurance' , amount : 294.67 , date : new Date(2021,8,28)  ,LocationOfExpenditure : 'Pune'},
-    {id : 'e3' , Title : 'Home insurance' , amount : 294.67 , date : new Date(2021,8,28), LocationOfExpenditure : 'Kolhapur'},
-    {id : 'e4' , Title : 'gold loan' , amount : 294.67 , date : new Date(2021,8,28),LocationOfExpenditure : 'Trimbak'}
-    
-  ]
 
-  return React.createElement( 'div',{},
-  React.createElement('h2',{},"let's get started!"),
-  React.createElement(Expenses,{items: expenses}),
-  React.createElement(NewExpense, {})
-    // <div className="App">
-    //           {/* <h2>Let's get started</h2>
-    //           <ExpenseItem Title = {Expenses[0].Title} amount = {Expenses[0].amount} date = {Expenses[0].date} LocationOfExpenditure = {Expenses[0].LocationOfExpenditure}></ExpenseItem>
-    //           <ExpenseItem Title = {Expenses[1].Title} amount = {Expenses[1].amount} date = {Expenses[1].date} LocationOfExpenditure = {Expenses[1].LocationOfExpenditure}></ExpenseItem>
-    //           <ExpenseItem Title = {Expenses[2].Title} amount = {Expenses[2].amount} date = {Expenses[2].date} LocationOfExpenditure = {Expenses[2].LocationOfExpenditure}></ExpenseItem>
-    //           <ExpenseItem Title = {Expenses[3].Title} amount = {Expenses[3].amount} date = {Expenses[3].date} LocationOfExpenditure = {Expenses[3].LocationOfExpenditure}></ExpenseItem>
-    //            */}
-    //           {Expenses.map((el)=>{
-    //             return  <ExpenseItem Title = {el.Title} amount = {el.amount} date = {el.date} LocationOfExpenditure = {el.LocationOfExpenditure}></ExpenseItem>
+  const DUMMY_EXPENSES = [
+    {
+      id: 'e1',
+      title: 'Toilet Paper',
+      amount: 94.12,
+      date: new Date(2020, 7, 14),
+      location:'India'
+    },
+    { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12),location:'USA' },
+    {
+      id: 'e3',
+      title: 'Car Insurance',
+      amount: 294.67,
+      date: new Date(2021, 2, 28),
+      location:'UK'
+    },
+    {
+      id: 'e4',
+      title: 'New Desk (Wooden)',
+      amount: 450,
+      date: new Date(2021, 5, 12),
+      location:'London'
+    },
+  ];
+  
+  const App=() =>{
+    const[expenses,setExpenses]=useState(DUMMY_EXPENSES);
 
-    //           })}
-    // </div>
-  );
+  const addExpenseHandler=(expense)=>{
+// console.log("In App.js");
+// console.log(expense);
+setExpenses(prevExpenses=>{
+  return [expense,...prevExpenses]
+});
+  };
+    return (
+      <div>
+      {/* <h2>Let's get started!</h2> */}
+      {/* <ExpenseForm onSaveExpenseData/> */}
+      <NewExpense onAddExpense={addExpenseHandler}/>
+        <Expenses items={expenses}/>
+       
+      </div>
+     );
 }
 
 export default App;

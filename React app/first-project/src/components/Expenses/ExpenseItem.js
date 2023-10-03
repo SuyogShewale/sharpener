@@ -1,52 +1,45 @@
-import React , { useState }from 'react';
-import './ExpenseItem.css';
+import React from "react";
+import Card from "../UI/Card";
+import ExpenseDate from "./ExpenseDate";
+import ExpenseDetails from "./ExpenseDetails";
+import "./ExpenseItem.css";
 
-import ExpenseDetails from './ExpenseDetails';
-import ExpenseDate from './ExpenseDate';
-import Card from '../UI/Card';
-
-
-const ExpenseItem = (props)  => {
- 
-const Month = props.date.toLocaleString('en-US' , { Month : 'long'});
-const day = props.date.toLocaleString('en-US' , { Month : '2-digit'});
-const year = props.date.getFullYear();
-const [title ,settitle ] = useState(props.title);
-const clickHandler = ()=>{
-settitle("updated")
-console.log(title);
-}
-
-
-const removeExpense = ()=>{
-  console.log("deleted")
-}
-
-
-return (
-  <>
-
-   <Card className='expense-item'>
-
-
- <ExpenseDate date ={props.date} />
- <div className='expense-item__description'>
-    <h2 style={{ color: 'blue', fontSize: '20px' }}>{props.title}</h2>
-    <div className='expense-item__price' style={{ fontWeight: 'bold' }}>${props.amount}</div>
- </div>
-  <button onClick={clickHandler}>Change Title</button>
-  <button onClick={removeExpense}>Delete</button>
-
+const ExpenseItem = (props) => {
+  // return (
+  // <div className="expense-item">
+  // <ExpenseDate/>
+  //     <div className="expense-item__description">
+  //    <h2>{props.title}</h2>
+  //     <div className="expense-item__price">${props.amount}</div>
+  //     </div>
+  //     <div className="location"><h2>{props.Location}</h2></div>
+  // </div>
+  // );
+  // const [title,setTitle]=useState(props.title);
+  // const [amount,setAmount]=useState(props.amount);
+  // const deleteHandler=()=>{
+  //   console.log("Deleted!!!");
+  // };
+  // const updateHandler=()=>{
+  //   setAmount(100);
+  //   console.log(amount);
+  // }
+  // const clickHandler = () => {
+  //   setTitle("Updated!!");
+  //  console.log(title);
+  // };
   
-  {/* <ExpenseDetails amount={props.amount}  LocationOfExpenditure={props.LocationOfExpenditure}   Title={props.Title} />  */}
-
-  
-</Card>
-</>
-  
-)
-  
-}
-
-
+  return (
+    <Card className="expense-item">
+      <ExpenseDate date={props.date} />
+      
+      <ExpenseDetails title={props.title}
+      amount={props.amount}
+        location={props.location}/>
+      {/* <button onClick={clickHandler}>ChangeTitle</button>
+      <button onClick={deleteHandler}>DeleteExpense</button>
+      <button onClick={updateHandler}>ChangeExpense</button> */}
+    </Card>
+  );
+};
 export default ExpenseItem;
