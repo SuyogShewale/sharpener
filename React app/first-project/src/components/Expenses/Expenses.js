@@ -17,24 +17,30 @@ import ExpensesFilter from './ExpensesFilter'
     return expense.date.getFullYear().toString()===filteredYear;
    })
 
+   let expensesContent = <p>No expenses found</p>
+
+   if(filteredExpenses.length > 0){
+      expensesContent =  filteredExpenses.map((ele)=>{
+        return (
+        <ExpenseItem 
+        key={ele.id}
+        title={ele.title}
+         amount={ele.amount}  
+         location={ele.location}
+         date={ele.date}></ExpenseItem>   
+         );
+          })
+          }
+  
+
     return (
       <div>
     <Card className="expenses">
     <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
-      {
-        filteredExpenses.map((ele)=>{
-      return (
-      <ExpenseItem 
-      key={ele.id}
-      title={ele.title}
-       amount={ele.amount}  
-       location={ele.location}
-       date={ele.date}></ExpenseItem>   
-       );
-        })
-        }
+   
+       {expensesContent}
         </Card>
         </div>
         );       
-       }
+    }
        export default Expenses;
